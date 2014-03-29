@@ -1,0 +1,9 @@
+name: MynerimSG
+main: net.mcshockwave.Mynerim.MSG
+version: 1.0
+author: Blaxcraft
+depend: [Dragon_Shouts]
+commands:
+   sg:
+   join:
+   leave:
