@@ -336,29 +336,18 @@ public class DefaultListener implements Listener {
 
 		if (a == Action.RIGHT_CLICK_BLOCK && SGMap.getPlayerMap(p) == null && b != null && b.getState() instanceof Sign) {
 			Sign s = (Sign) b.getState();
-
-			if (s.getLine(0).equalsIgnoreCase("§2§nJoin Map")) {
-				for (SGMap sg : SGMap.values()) {
-					if (s.getLine(1).equalsIgnoreCase("§a" + sg.name)) {
+			for (SGMap sg : SGMap.values()) {
+				if (s.getLine(1).equalsIgnoreCase("§a" + sg.name)) {
+					if (sg.started) {
 						p.performCommand("join " + sg.name());
-						if (!signs.containsKey(s)) {
-							signs.put(s, sg);
-						}
-						setSignText(s, sg);
-						break;
-					}
-				}
-			}
-			if (s.getLine(0).equalsIgnoreCase("§4§nStarted")) {
-				for (SGMap sg : SGMap.values()) {
-					if (s.getLine(1).equalsIgnoreCase("§a" + sg.name)) {
+					} else {
 						sg.addSpec(p);
-						if (!signs.containsKey(s)) {
-							signs.put(s, sg);
-						}
-						setSignText(s, sg);
-						break;
 					}
+					if (!signs.containsKey(s)) {
+						signs.put(s, sg);
+					}
+					setSignText(s, sg);
+					break;
 				}
 			}
 		}
