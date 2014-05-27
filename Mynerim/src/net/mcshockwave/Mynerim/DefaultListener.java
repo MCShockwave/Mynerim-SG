@@ -338,7 +338,7 @@ public class DefaultListener implements Listener {
 			Sign s = (Sign) b.getState();
 			for (SGMap sg : SGMap.values()) {
 				if (s.getLine(1).equalsIgnoreCase("§a" + sg.name)) {
-					if (sg.started) {
+					if (!sg.started) {
 						p.performCommand("join " + sg.name());
 					} else {
 						sg.addSpec(p);
