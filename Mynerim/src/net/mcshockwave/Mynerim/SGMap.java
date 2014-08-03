@@ -364,7 +364,7 @@ public enum SGMap {
 					if (!dead.contains(ps)) {
 						MCShockwave.broadcast(ChatColor.AQUA, "%s has won on map %s with %s health left!", ps, name,
 								(int) Bukkit.getPlayer(ps).getHealth());
-						PointsUtils.addPoints(Bukkit.getPlayer(ps), players.size() * 50, "winning", true);
+						PointsUtils.addPoints(Bukkit.getPlayer(ps), players.size() * 100, "winning");
 						Statistics.incrWins(ps, true);
 						break;
 					}
