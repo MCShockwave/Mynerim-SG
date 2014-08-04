@@ -23,7 +23,6 @@ import org.bukkit.FireworkEffect;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.block.Chest;
@@ -173,8 +172,8 @@ public enum SGMap {
 		for (String s : players) {
 			Player p = Bukkit.getPlayer(s);
 
-			playersLeft.getScore(p).setScore(1);
-			playersLeft.getScore(p).setScore(0);
+			playersLeft.getScore(p.getName()).setScore(1);
+			playersLeft.getScore(p.getName()).setScore(0);
 		}
 
 		health = sb.registerNewObjective("Health", "health");
@@ -193,13 +192,13 @@ public enum SGMap {
 			p.setScoreboard(sb);
 
 			if (dead.contains(p.getName())) {
-				playersLeft.getScoreboard().resetScores(p);
+				playersLeft.getScoreboard().resetScores(p.getName());
 			}
 		}
 
-		for (OfflinePlayer op : sb.getPlayers()) {
-			if (!players.contains(op.getName()) || dead.contains(op.getName())) {
-				sb.resetScores(op);
+		for (String ent : sb.getEntries()) {
+			if (!players.contains(ent) || dead.contains(ent)) {
+				sb.resetScores(ent);
 			}
 		}
 	}
@@ -268,7 +267,6 @@ public enum SGMap {
 		}
 	}
 
-	@SuppressWarnings("deprecation")
 	public static void resetDurability(Player p) {
 		PlayerInventory pi = p.getInventory();
 
@@ -325,7 +323,7 @@ public enum SGMap {
 	public String getDeathMessage(Player p) {
 		String message = "§a%p§7 was killed".replace("%p", p.getName());
 		if (p.getKiller() != null) {
-			Score s = playersLeft.getScore(p.getKiller());
+			Score s = playersLeft.getScore(p.getKiller().getName());
 			s.setScore(s.getScore() + 1);
 
 			message += " by §a%k§7 using §6%i".replace("%k", p.getKiller().getName()).replace("%i",
